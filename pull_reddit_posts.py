@@ -14,7 +14,7 @@ def write(posts, output_file):
         for post in posts:
             # dump this dic as a json string in file
             json.dump(post, file)
-            print(post['title'])
+            #print(post['title'])
             # append new line char
             file.write(new_line_char)
 
@@ -36,16 +36,16 @@ def make_json_file(date, date_and_epoch_dic, filename):
 
         for i in range(0,number_of_intervals):
             print(i)
-            request_data = requests.get(f'https://api.pushshift.io/reddit/search/submission/?subreddit={reddit}&after={temp_after_epoch}&before={temp_before_epoch}&size=500')
-            data = json.loads(request_data.content.decode('utf8'))
-            print(data)
-            temp_before_epoch = temp_before_epoch + increment_time
-            temp_before_epoch = temp_before_epoch - increment_time
+            data = requests.get(f'https://api.pushshift.io/reddit/search/submission/?subreddit={reddit}&after={temp_after_epoch}&before={temp_before_epoch}&size=100')
+            x = json.loads(data.content.decode('utf8'))
+            list_of_posts.append(x)
+            temp_before_epoch = int(temp_before_epoch - increment_time)
+            temp_after_epoch = int(temp_after_epoch + increment_time)
 
+        write(list_of_posts, "hmm.json") 
 
-        # lists_of_posts now contains a list of all the posts we have pulled for this subreddit
-        #write(list_of_posts, filename)
-        break
+        
+       # break
     
 
 def make_requests_to_reddit(date_and_epoch_dic):
