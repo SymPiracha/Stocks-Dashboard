@@ -42,7 +42,7 @@ def make_json_file(date, date_and_epoch_dic, filename):
             temp_before_epoch = int(temp_before_epoch - increment_time)
             temp_after_epoch = int(temp_after_epoch + increment_time)
 
-        write(list_of_posts, "hmm.json") 
+        write(list_of_posts, "output_file.json") 
 
         
        # break
